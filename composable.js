@@ -126,10 +126,12 @@
         toFloat: function (item) {
             return isString(item) || isNumber(item) ? parseFloat(item) : null;
         },
-        toFixed: function (item) {
-            var float = isString(item) ? parseFloat(item) : item;
-            return function (precision) {
-                return isNumber(float) ? float.toFixed(precision) : null;
+        toFixed: function (precision) {
+            var precision = isString(precision) ? parseFloat(precision) : precision;
+            return function (item) {
+                var float = isString(item) ? parseFloat(item) : item;
+
+                return isNumber(float) && !isNaN(float) ? float.toFixed(precision) : null;
             };
         },
         round: function (item) {
@@ -380,7 +382,7 @@
         return args;
     };
 
-    Composable.VERSION = '0.4.5';
+    Composable.VERSION = '0.4.6';
 
     // Make the object globally accessible
     root.Composable = Composable;

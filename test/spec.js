@@ -205,12 +205,25 @@ describe('Composable', function () {
 
         describe('toFixed', function () {
             it('should default to 0', function () {
-                expect(Composable.T.toFixed(1.234)()).toEqual('1');
+                expect(Composable.T.toFixed()(1.234)).toEqual('1');
             });
 
             it('should return fixed string at given precision', function () {
-                expect(Composable.T.toFixed(4.123)(5)).toEqual('4.12300');
-                expect(Composable.T.toFixed('4.12345')(3)).toEqual('4.123');
+                expect(Composable.T.toFixed(5)(4.123)).toEqual('4.12300');
+                expect(Composable.T.toFixed(3)('4.12345')).toEqual('4.123');
+            });
+
+            it('should accept precision as a string or number', function () {
+                expect(Composable.T.toFixed('2')('4.1')).toEqual('4.10');
+
+                var extractedData = Composable({
+                    a: [
+                        'window',
+                        'getProperties:testData.test3',
+                        'toFixed:2'
+                    ]
+                });
+                expect(extractedData.a).toEqual('11.00');
             });
         });
 

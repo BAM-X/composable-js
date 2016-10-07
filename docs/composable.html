@@ -172,7 +172,7 @@ We use <code>self</code> instead of <code>window</code> for <code>WebWorker</cod
             <div class="content"><div class='highlight'><pre>        <span class="hljs-built_in">window</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
             <span class="hljs-keyword">return</span> root;
         },
-        <span class="hljs-built_in">document</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        <span class="hljs-attr">document</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
             <span class="hljs-keyword">return</span> root.document;
         },</pre></div></div>
             
@@ -194,18 +194,18 @@ We use <code>self</code> instead of <code>window</code> for <code>WebWorker</cod
                 <span class="hljs-keyword">return</span> node ? node.querySelectorAll(selector) : <span class="hljs-literal">null</span>;
             };
         },
-        querySelector: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">selector</span>) </span>{
+        <span class="hljs-attr">querySelector</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">selector</span>) </span>{
             <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">node</span>) </span>{
                 <span class="hljs-keyword">return</span> node ? node.querySelector(selector) : <span class="hljs-literal">null</span>;
             };
         },
-        innerHTML: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">node</span>) </span>{
+        <span class="hljs-attr">innerHTML</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">node</span>) </span>{
             <span class="hljs-keyword">return</span> node ? node.innerHTML : <span class="hljs-literal">null</span>;
         },
-        innerText: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">node</span>) </span>{
+        <span class="hljs-attr">innerText</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">node</span>) </span>{
             <span class="hljs-keyword">return</span> node ? node.innerText || node.textContent : <span class="hljs-literal">null</span>;
         },
-        rootInnerText: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">node</span>) </span>{
+        <span class="hljs-attr">rootInnerText</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">node</span>) </span>{
             <span class="hljs-keyword">if</span> (!node) <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
 
             <span class="hljs-keyword">var</span> textNodes = [];
@@ -216,10 +216,10 @@ We use <code>self</code> instead of <code>window</code> for <code>WebWorker</cod
             }
             <span class="hljs-keyword">return</span> Composable.T.trim(textNodes.join(<span class="hljs-string">' '</span>));
         },
-        value: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">node</span>) </span>{
+        <span class="hljs-attr">value</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">node</span>) </span>{
             <span class="hljs-keyword">return</span> node ? node.value : <span class="hljs-literal">null</span>;
         },
-        getAttribute: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">attr</span>) </span>{
+        <span class="hljs-attr">getAttribute</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">attr</span>) </span>{
             <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">node</span>) </span>{
                 <span class="hljs-keyword">return</span> node &amp;&amp; node.getAttribute ? node.getAttribute(attr) : <span class="hljs-literal">null</span>;
             };
@@ -241,19 +241,21 @@ We use <code>self</code> instead of <code>window</code> for <code>WebWorker</cod
             <div class="content"><div class='highlight'><pre>        toInt: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">item</span>) </span>{
             <span class="hljs-keyword">return</span> isString(item) || isNumber(item) ? <span class="hljs-built_in">parseInt</span>(item, <span class="hljs-number">10</span>) : <span class="hljs-literal">null</span>;
         },
-        toFloat: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">item</span>) </span>{
+        <span class="hljs-attr">toFloat</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">item</span>) </span>{
             <span class="hljs-keyword">return</span> isString(item) || isNumber(item) ? <span class="hljs-built_in">parseFloat</span>(item) : <span class="hljs-literal">null</span>;
         },
-        toFixed: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">item</span>) </span>{
-            <span class="hljs-keyword">var</span> float = isString(item) ? <span class="hljs-built_in">parseFloat</span>(item) : item;
-            <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">precision</span>) </span>{
-                <span class="hljs-keyword">return</span> isNumber(float) ? float.toFixed(precision) : <span class="hljs-literal">null</span>;
+        <span class="hljs-attr">toFixed</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">precision</span>) </span>{
+            <span class="hljs-keyword">var</span> precision = isString(precision) ? <span class="hljs-built_in">parseFloat</span>(precision) : precision;
+            <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">item</span>) </span>{
+                <span class="hljs-keyword">var</span> float = isString(item) ? <span class="hljs-built_in">parseFloat</span>(item) : item;
+
+                <span class="hljs-keyword">return</span> isNumber(float) &amp;&amp; !<span class="hljs-built_in">isNaN</span>(float) ? float.toFixed(precision) : <span class="hljs-literal">null</span>;
             };
         },
-        round: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">item</span>) </span>{
+        <span class="hljs-attr">round</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">item</span>) </span>{
             <span class="hljs-keyword">return</span> isNumber(item) ? <span class="hljs-built_in">Math</span>.round(item) : <span class="hljs-literal">null</span>;
         },
-        multiplyBy: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">factor</span>) </span>{
+        <span class="hljs-attr">multiplyBy</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">factor</span>) </span>{
             <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">number</span>) </span>{
                 <span class="hljs-keyword">return</span> isNumber(number) ? factor * number : <span class="hljs-literal">null</span>;
             };
@@ -278,7 +280,7 @@ We use <code>self</code> instead of <code>window</code> for <code>WebWorker</cod
             <span class="hljs-keyword">var</span> firstChild = div.firstChild;
             <span class="hljs-keyword">return</span> firstChild ? firstChild.nodeValue + <span class="hljs-built_in">String</span>() : <span class="hljs-string">''</span>;
         },
-        reverse: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">item</span>) </span>{
+        <span class="hljs-attr">reverse</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">item</span>) </span>{
             <span class="hljs-keyword">if</span> (isString(item)) {
                 <span class="hljs-keyword">return</span> item.split(<span class="hljs-string">''</span>).reverse().join(<span class="hljs-string">''</span>);
             } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (isArray(item)) {
@@ -286,13 +288,13 @@ We use <code>self</code> instead of <code>window</code> for <code>WebWorker</cod
             }
             <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
         },
-        toString: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">item</span>) </span>{
+        <span class="hljs-attr">toString</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">item</span>) </span>{
             <span class="hljs-keyword">return</span> item ? item + <span class="hljs-built_in">String</span>() : <span class="hljs-literal">null</span>;
         },
-        trim: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">text</span>) </span>{
+        <span class="hljs-attr">trim</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">text</span>) </span>{
             <span class="hljs-keyword">return</span> isString(text) ? text.trim() : <span class="hljs-literal">null</span>;
         },
-        split: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">delimeter, limit</span>) </span>{
+        <span class="hljs-attr">split</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">delimeter, limit</span>) </span>{
             <span class="hljs-keyword">var</span> args = [delimeter];
             <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> limit !== <span class="hljs-string">'undefined'</span>) {
                 args.push(<span class="hljs-built_in">parseInt</span>(limit, <span class="hljs-number">10</span>));
@@ -301,18 +303,18 @@ We use <code>self</code> instead of <code>window</code> for <code>WebWorker</cod
                 <span class="hljs-keyword">return</span> isString(text) ? text.split.apply(text, args) : <span class="hljs-literal">null</span>;
             };
         },
-        join: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">delimeter</span>) </span>{
+        <span class="hljs-attr">join</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">delimeter</span>) </span>{
             <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">array</span>) </span>{
                 <span class="hljs-keyword">return</span> isArray(array) ? array.join(delimeter) : <span class="hljs-literal">null</span>;
             };
         },
-        replace: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pattern, replacement</span>) </span>{
+        <span class="hljs-attr">replace</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pattern, replacement</span>) </span>{
             pattern = isString(pattern) &amp;&amp; stringIsRegExp(pattern) ? toRegExp(pattern) : pattern;
             <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">text</span>) </span>{
                 <span class="hljs-keyword">return</span> isString(text) ? text.replace(pattern, replacement) : <span class="hljs-literal">null</span>;
             };
         },
-        match: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pattern</span>) </span>{
+        <span class="hljs-attr">match</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pattern</span>) </span>{
             pattern = isString(pattern) &amp;&amp; stringIsRegExp(pattern) ? toRegExp(pattern) : pattern;
             <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">text</span>) </span>{
                 <span class="hljs-keyword">return</span> isString(text) ? text.match(pattern) : <span class="hljs-literal">null</span>;
@@ -338,7 +340,7 @@ We use <code>self</code> instead of <code>window</code> for <code>WebWorker</cod
                 <span class="hljs-keyword">return</span> isArray(array) &amp;&amp; array.length &gt; index ? array[index] : <span class="hljs-literal">null</span>;
             };
         },
-        slice: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">start, stop</span>) </span>{
+        <span class="hljs-attr">slice</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">start, stop</span>) </span>{
             <span class="hljs-keyword">var</span> args = [<span class="hljs-built_in">parseInt</span>(start, <span class="hljs-number">10</span>)];
             <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> stop !== <span class="hljs-string">'undefined'</span>) {
                 args.push(<span class="hljs-built_in">parseInt</span>(stop, <span class="hljs-number">10</span>));
@@ -386,7 +388,7 @@ We use <code>self</code> instead of <code>window</code> for <code>WebWorker</cod
                 <span class="hljs-keyword">return</span> object ? object[property] : <span class="hljs-literal">null</span>;
             };
         },
-        getProperties: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">propertyString</span>) </span>{
+        <span class="hljs-attr">getProperties</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">propertyString</span>) </span>{
             <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">object</span>) </span>{
                 <span class="hljs-keyword">if</span> (!object) {
                     <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
@@ -403,7 +405,7 @@ We use <code>self</code> instead of <code>window</code> for <code>WebWorker</cod
     };
 
     <span class="hljs-keyword">var</span> arrayTransformations = {
-        map: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">method</span>) </span>{
+        <span class="hljs-attr">map</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">method</span>) </span>{
             <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">array</span>) </span>{
                 <span class="hljs-keyword">return</span> isArray(array) || isNodeList(array) ? <span class="hljs-built_in">Array</span>.prototype.map.call(array, method) : <span class="hljs-literal">null</span>;
             };
@@ -568,7 +570,7 @@ We use <code>self</code> instead of <code>window</code> for <code>WebWorker</cod
             }
         }
 
-        <span class="hljs-keyword">return</span> {command: command, args: args};
+        <span class="hljs-keyword">return</span> {<span class="hljs-attr">command</span>: command, <span class="hljs-attr">args</span>: args};
     };
 
     Composable.prototype.getTransformationForStringTransformation = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">transformationInput</span>) </span>{
@@ -586,7 +588,7 @@ We use <code>self</code> instead of <code>window</code> for <code>WebWorker</cod
 
         <span class="hljs-keyword">var</span> args = subCommand ? [subCommand] : Composable.extractArgs(commandArgString);
 
-        <span class="hljs-keyword">return</span> {command: command, args: args};
+        <span class="hljs-keyword">return</span> {<span class="hljs-attr">command</span>: command, <span class="hljs-attr">args</span>: args};
     };
 
     Composable.extractArgs = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">string</span>) </span>{
@@ -608,7 +610,7 @@ We use <code>self</code> instead of <code>window</code> for <code>WebWorker</cod
         <span class="hljs-keyword">return</span> args;
     };
 
-    Composable.VERSION = <span class="hljs-string">'0.4.5'</span>;</pre></div></div>
+    Composable.VERSION = <span class="hljs-string">'0.4.6'</span>;</pre></div></div>
             
         </li>
         
